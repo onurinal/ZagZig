@@ -1,0 +1,164 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1255157119772135494
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4010045701090326890}
+  - component: {fileID: 5628001969006043125}
+  - component: {fileID: 2189073232273093860}
+  m_Layer: 0
+  m_Name: Ball
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4010045701090326890
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255157119772135494}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.446, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6978792665085127050}
+  - {fileID: 6869575088116006411}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5628001969006043125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255157119772135494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48412901e75446bfa7d3b75d96b7f86d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZagZig.Player.PlayerController
+  playerInput: {fileID: 11400000, guid: 3c92329a7e5e0c34ca298ed529e2fb56, type: 2}
+  playerProperties: {fileID: 11400000, guid: fd5a11638375c4a4da08dbe8f058d2d9, type: 2}
+  playerMovement: {fileID: 2189073232273093860}
+  playerRigidbody: {fileID: 4522113336357472324}
+  ballHead: {fileID: 6978792665085127050}
+--- !u!114 &2189073232273093860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255157119772135494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8511415250647e68f1487a2ebc9c7b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZagZig.Player.PlayerMovement
+--- !u!1 &8567804370219145528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6869575088116006411}
+  m_Layer: 0
+  m_Name: Ball Body
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6869575088116006411
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8567804370219145528}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4010045701090326890}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2631286910711317104
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4010045701090326890}
+    m_Modifications:
+    - target: {fileID: 4926255698881637370, guid: 539ef4a58e856e24ebf28da12e28941a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4926255698881637370, guid: 539ef4a58e856e24ebf28da12e28941a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4926255698881637370, guid: 539ef4a58e856e24ebf28da12e28941a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4926255698881637370, guid: 539ef4a58e856e24ebf28da12e28941a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4926255698881637370, guid: 539ef4a58e856e24ebf28da12e28941a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4926255698881637370, guid: 539ef4a58e856e24ebf28da12e28941a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4926255698881637370, guid: 539ef4a58e856e24ebf28da12e28941a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4926255698881637370, guid: 539ef4a58e856e24ebf28da12e28941a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4926255698881637370, guid: 539ef4a58e856e24ebf28da12e28941a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4926255698881637370, guid: 539ef4a58e856e24ebf28da12e28941a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8017953439116184180, guid: 539ef4a58e856e24ebf28da12e28941a, type: 3}
+      propertyPath: m_Name
+      value: Ball Head
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 539ef4a58e856e24ebf28da12e28941a, type: 3}
+--- !u!54 &4522113336357472324 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 1893187085971589684, guid: 539ef4a58e856e24ebf28da12e28941a, type: 3}
+  m_PrefabInstance: {fileID: 2631286910711317104}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6978792665085127050 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4926255698881637370, guid: 539ef4a58e856e24ebf28da12e28941a, type: 3}
+  m_PrefabInstance: {fileID: 2631286910711317104}
+  m_PrefabAsset: {fileID: 0}
