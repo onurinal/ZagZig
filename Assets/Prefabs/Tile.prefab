@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8068051713779019688}
+  - component: {fileID: 1380866507047745495}
   m_Layer: 0
   m_Name: Tile
   m_TagString: Untagged
@@ -32,6 +33,22 @@ Transform:
   - {fileID: 5066837113666521103}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1380866507047745495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5373721659918606011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7933235aea964e109e6420c3971c1d8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZagZig.Tile
+  fallDelay: 0.5
+  fallSpeed: 1
+  fallDistance: 5
+  isStartGround: 0
 --- !u!1 &6764192420539142317
 GameObject:
   m_ObjectHideFlags: 0
@@ -45,7 +62,7 @@ GameObject:
   - component: {fileID: 1066687489046907128}
   - component: {fileID: 4072869211613771660}
   m_Layer: 0
-  m_Name: Obstacle Model
+  m_Name: Tile Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

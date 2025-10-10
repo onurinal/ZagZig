@@ -16,7 +16,10 @@ namespace ZagZig
 
         private void LateUpdate()
         {
-            FollowBall();
+            if (ballHead != null)
+            {
+                FollowBall();
+            }
         }
 
         private void FollowBall()

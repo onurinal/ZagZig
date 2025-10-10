@@ -150,13 +150,33 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8017953439116184180, guid: 539ef4a58e856e24ebf28da12e28941a, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 8849230216272225911}
   m_SourcePrefab: {fileID: 100100000, guid: 539ef4a58e856e24ebf28da12e28941a, type: 3}
 --- !u!54 &4522113336357472324 stripped
 Rigidbody:
   m_CorrespondingSourceObject: {fileID: 1893187085971589684, guid: 539ef4a58e856e24ebf28da12e28941a, type: 3}
   m_PrefabInstance: {fileID: 2631286910711317104}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5458727429938939908 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8017953439116184180, guid: 539ef4a58e856e24ebf28da12e28941a, type: 3}
+  m_PrefabInstance: {fileID: 2631286910711317104}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8849230216272225911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5458727429938939908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1a588437fbe4220b7d4c598bbae5479, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZagZig.Ball.BallHead
 --- !u!4 &6978792665085127050 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4926255698881637370, guid: 539ef4a58e856e24ebf28da12e28941a, type: 3}

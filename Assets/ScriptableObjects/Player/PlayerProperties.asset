@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e89c01c11fe6436a85c64074b8f24b37, type: 3}
   m_Name: PlayerProperties
   m_EditorClassIdentifier: Assembly-CSharp::ZagZig.Player.PlayerProperties
-  moveSpeed: 4
+  moveSpeed: 5

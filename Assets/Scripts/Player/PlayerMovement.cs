@@ -1,4 +1,5 @@
 using UnityEngine;
+using ZagZig.Manager;
 
 namespace ZagZig.Player
 {
@@ -8,7 +9,6 @@ namespace ZagZig.Player
         private PlayerProperties playerProperties;
         private PlayerController playerController;
         private Transform ballHead;
-
         private Vector3 moveDirection = Vector3.right;
 
         public void Initialize(PlayerController playerController, PlayerInput playerInput, PlayerProperties playerProperties, Transform ballHead)
@@ -23,7 +23,10 @@ namespace ZagZig.Player
 
         private void Update()
         {
-            Move();
+            if (GameManager.Instance.HasGameStarted)
+            {
+                Move();
+            }
         }
 
         private void Move()
@@ -43,6 +46,13 @@ namespace ZagZig.Player
         //When player click, tap or press space, the ball will change direction
         private void HandleMovement()
         {
+            if (!GameManager.Instance.HasGameStarted)
+            {
+                GameManager.Instance.StartGame();
+                moveDirection = Vector3.right;
+                return;
+            }
+
             moveDirection = moveDirection == Vector3.right ? Vector3.forward : Vector3.right;
         }
     }

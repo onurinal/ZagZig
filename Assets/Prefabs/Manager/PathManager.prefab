@@ -44,5 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15aa1b274f054f49a2085edf3e083d6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZagZig.Manager.PathManager
-  pathParent: {fileID: 0}
+  tileParent: {fileID: 0}
   tilePrefab: {fileID: 8068051713779019688, guid: e486ed5cb91ab0a489067285de968093, type: 3}
+  tileCountAtStart: 25
+  gemPrefab: {fileID: 7313012806921032494, guid: 0e7fa77465f188549ae29c16d1542047, type: 3}
+  gemSpawnRate: 20

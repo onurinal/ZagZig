@@ -7,11 +7,18 @@ namespace ZagZig.Manager
     {
         public static ObjectPoolManager Instance;
 
-        [SerializeField] private Transform pathParent;
-        [SerializeField] private GameObject tilePrefab;
-        [SerializeField] private int maxTileSize = 20;
+        [Header("Tile")]
+        [SerializeField] private Transform tileParent;
+        [SerializeField] private Transform tilePrefab;
+        [SerializeField] private int maxTileSize = 30;
 
-        private readonly Queue<GameObject> pathQueue = new Queue<GameObject>();
+        [Header("Gem")]
+        [SerializeField] private Transform gemParent;
+        [SerializeField] private Transform gemPrefab;
+        [SerializeField] private int maxGemSize = 12;
+
+        private readonly Queue<Transform> tileQueue = new Queue<Transform>();
+        private readonly Queue<Transform> gemQueue = new Queue<Transform>();
 
         private void Awake()
         {
@@ -25,34 +32,63 @@ namespace ZagZig.Manager
             }
 
             CreateNewTiles(maxTileSize);
+            CreateNewGems(maxGemSize);
         }
 
         private void CreateNewTiles(int count)
         {
             for (int i = 0; i < count; i++)
             {
-                var newTile = Instantiate(tilePrefab, pathParent);
+                var newTile = Instantiate(tilePrefab, tileParent);
                 newTile.gameObject.SetActive(false);
-                pathQueue.Enqueue(newTile);
+                tileQueue.Enqueue(newTile);
             }
         }
 
-        public GameObject GetTile()
+        public Transform GetTile()
         {
-            if (pathQueue.Count <= 0)
+            if (tileQueue.Count <= 0)
             {
                 CreateNewTiles(5);
             }
 
-            var tile = pathQueue.Dequeue();
-            tile.SetActive(true);
+            var tile = tileQueue.Dequeue();
+            tile.gameObject.SetActive(true);
             return tile;
         }
 
-        public void RemoveTile(GameObject tile)
+        public void RemoveTile(Transform tile)
         {
-            tile.SetActive(false);
-            pathQueue.Enqueue(tile);
+            tile.gameObject.SetActive(false);
+            tileQueue.Enqueue(tile);
+        }
+
+        private void CreateNewGems(int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                var newGem = Instantiate(gemPrefab, gemParent);
+                newGem.gameObject.SetActive(false);
+                gemQueue.Enqueue(newGem);
+            }
+        }
+
+        public Transform GetGem()
+        {
+            if (gemQueue.Count <= 0)
+            {
+                CreateNewGems(5);
+            }
+
+            var gem = gemQueue.Dequeue();
+            gem.gameObject.SetActive(true);
+            return gem;
+        }
+
+        public void RemoveGem(Transform gem)
+        {
+            gem.gameObject.SetActive(false);
+            gemQueue.Enqueue(gem);
         }
     }
 }

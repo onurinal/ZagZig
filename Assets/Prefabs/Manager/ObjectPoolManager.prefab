@@ -45,5 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZagZig.Manager.ObjectPoolManager
   pathParent: {fileID: 0}
-  tilePrefab: {fileID: 5373721659918606011, guid: e486ed5cb91ab0a489067285de968093, type: 3}
-  maxTileSize: 20
+  tilePrefab: {fileID: 8068051713779019688, guid: e486ed5cb91ab0a489067285de968093, type: 3}
+  maxTileSize: 30
+  gemParent: {fileID: 0}
+  gemPrefab: {fileID: 7313012806921032494, guid: 0e7fa77465f188549ae29c16d1542047, type: 3}
+  maxGemSize: 12
