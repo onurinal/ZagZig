@@ -13,6 +13,7 @@ namespace ZagZig.Ball
 
             if (tile != null)
             {
+                EventManager.OnScoreChanged?.Invoke(UIManager.Instance.TileScorePoint);
                 StartCoroutine(StartFallTileCoroutine(tile));
             }
         }

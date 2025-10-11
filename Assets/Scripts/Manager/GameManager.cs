@@ -11,6 +11,9 @@ namespace ZagZig.Manager
         [SerializeField] private PlayerController playerController;
         [SerializeField] private FollowPlayer followPlayer;
 
+        [SerializeField] private Transform gemPrefab;
+        [SerializeField] [Range(0, 100)] private int gemSpawnRate;
+
         public bool HasGameStarted { get; private set; } = false;
 
         private void Awake()
@@ -27,7 +30,7 @@ namespace ZagZig.Manager
 
         private void Start()
         {
-            pathManager.Initialize();
+            pathManager.Initialize(gemPrefab, gemSpawnRate);
             followPlayer.Initialize();
             playerController.Initialize();
         }

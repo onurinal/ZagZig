@@ -44,9 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06bdcf3d380743f6951612b80d3d1346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZagZig.Manager.ObjectPoolManager
-  pathParent: {fileID: 0}
+  tileParent: {fileID: 0}
   tilePrefab: {fileID: 8068051713779019688, guid: e486ed5cb91ab0a489067285de968093, type: 3}
-  maxTileSize: 30
+  maxTileCount: 30
   gemParent: {fileID: 0}
   gemPrefab: {fileID: 7313012806921032494, guid: 0e7fa77465f188549ae29c16d1542047, type: 3}
-  maxGemSize: 12
+  maxGemCount: 10
+  floatingScoreTextParent: {fileID: 0}
+  floatingScoreTextPrefab: {fileID: 895411071926712185, guid: aae9293f4e0e0af43b353e5424fdfc2e, type: 3}
+  maxFloatingTextCount: 10

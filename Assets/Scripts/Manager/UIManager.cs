@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 namespace ZagZig.Manager
@@ -7,6 +9,7 @@ namespace ZagZig.Manager
     {
         public static UIManager Instance;
 
+        [Header("Game Over Settings")]
         [SerializeField] private Transform gameOverPanel;
 
         [Header("Start Panel Settings")]
@@ -16,7 +19,16 @@ namespace ZagZig.Manager
         [Tooltip("adjusting speed title text to out of screen")]
         [SerializeField] private float speedTitleText;
         [SerializeField] private float upDistanceTitleText;
+
+        [SerializeField] private TextMeshProUGUI scoreText;
+        [SerializeField] private Transform floatingScoreTextPrefab;
+        [SerializeField] private int gemScorePoint;
+        [SerializeField] private int tileScorePoint; // after ball pass the tile, increase score text
+        private int currentScore = 0;
+
         private IEnumerator hideStartPanelCoroutine;
+        public int GemScorePoint => gemScorePoint;
+        public int TileScorePoint => tileScorePoint;
 
         private void Awake()
         {
@@ -28,6 +40,16 @@ namespace ZagZig.Manager
             {
                 Instance = this;
             }
+        }
+
+        private void OnEnable()
+        {
+            EventManager.OnScoreChanged += UpdateScoreText;
+        }
+
+        private void OnDisable()
+        {
+            EventManager.OnScoreChanged -= UpdateScoreText;
         }
 
         public void ShowGameOverPanel()
@@ -69,6 +91,26 @@ namespace ZagZig.Manager
                 StopCoroutine(hideStartPanelCoroutine);
                 hideStartPanelCoroutine = null;
             }
+        }
+
+        public void UpdateScoreText(int score)
+        {
+            currentScore += score;
+            scoreText.text = currentScore.ToString();
+        }
+
+        public void AnimateFloatingScoreText(int score, Vector3 position)
+        {
+            var floatingText = ObjectPoolManager.Instance.GetFloatingText();
+            floatingText.transform.position = position;
+            floatingText.GetComponentInChildren<TextMeshPro>().text = $"+{score}";
+            StartCoroutine(RemoveFloatingTextAfterSeconds(floatingText));
+        }
+
+        private IEnumerator RemoveFloatingTextAfterSeconds(Transform floatingText)
+        {
+            yield return new WaitForSeconds(2);
+            ObjectPoolManager.Instance.RemoveFloatingText(floatingText);
         }
     }
 }

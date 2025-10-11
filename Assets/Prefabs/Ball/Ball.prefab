@@ -52,6 +52,7 @@ MonoBehaviour:
   playerMovement: {fileID: 2189073232273093860}
   playerRigidbody: {fileID: 4522113336357472324}
   ballHead: {fileID: 6978792665085127050}
+  minHeightThreshold: 0
 --- !u!114 &2189073232273093860
 MonoBehaviour:
   m_ObjectHideFlags: 0

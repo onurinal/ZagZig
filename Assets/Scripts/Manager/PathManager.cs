@@ -11,11 +11,12 @@ namespace ZagZig.Manager
         [SerializeField] private Transform tileParent;
         [SerializeField] private Transform tilePrefab;
         [SerializeField] private int tileCountAtStart;
-        [SerializeField] private Transform gemPrefab;
-        [SerializeField] [Range(0, 100)] private int gemSpawnRate;
 
         private Vector3 lastTilePosition;
         private Vector3 tileScale;
+
+        private Transform gemPrefab;
+        private int gemSpawnRate;
 
         private float currentTileBoundHalfSizeY;
         private float currentGemBoundHalfSizeY;
@@ -38,8 +39,11 @@ namespace ZagZig.Manager
             }
         }
 
-        public void Initialize()
+        public void Initialize(Transform gemPrefab, int gemSpawnRate)
         {
+            this.gemPrefab = gemPrefab;
+            this.gemSpawnRate = gemSpawnRate;
+
             UpdateBounds();
             InitializeLastTilePosition();
             UpdateTileSize();

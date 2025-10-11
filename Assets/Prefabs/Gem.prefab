@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d94cbc586ea94b9b8bbc1bc67eaf2754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZagZig.Gem
+  gemScorePoint: 5
 --- !u!54 &943771139123441551
 Rigidbody:
   m_ObjectHideFlags: 0

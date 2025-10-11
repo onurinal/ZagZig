@@ -45,3 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZagZig.Manager.GameManager
   pathManager: {fileID: 0}
+  playerController: {fileID: 0}
+  followPlayer: {fileID: 0}
+  gemPrefab: {fileID: 7313012806921032494, guid: 0e7fa77465f188549ae29c16d1542047, type: 3}
+  gemSpawnRate: 20
