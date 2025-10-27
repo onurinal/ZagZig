@@ -61,12 +61,11 @@ namespace ZagZig
                 {
                     ObjectPoolManager.Instance.RemoveTile(this);
                     PathManager.Instance.CreateNewTile();
-                }
-                else
-                {
-                    gameObject.SetActive(false);
+                    return;
                 }
             }
+
+            gameObject.SetActive(false);
         }
 
         private void StopFallTile()
