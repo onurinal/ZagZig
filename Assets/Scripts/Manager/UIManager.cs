@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -7,7 +6,7 @@ namespace ZagZig.Manager
 {
     public class UIManager : MonoBehaviour
     {
-        public static UIManager Instance;
+        public static UIManager Instance { get; private set; }
 
         [Header("Game Over Settings")]
         [SerializeField] private Transform gameOverPanel;
@@ -18,10 +17,10 @@ namespace ZagZig.Manager
         [SerializeField] private Transform gameTitleText;
         [Tooltip("adjusting speed title text to out of screen")]
         [SerializeField] private float speedTitleText;
+        [Tooltip("adjusting distance title text to out of screen")]
         [SerializeField] private float upDistanceTitleText;
 
         [SerializeField] private TextMeshProUGUI scoreText;
-        [SerializeField] private Transform floatingScoreTextPrefab;
         [SerializeField] private int gemScorePoint;
         [SerializeField] private int tileScorePoint; // after ball pass the tile, increase score text
         private int currentScore = 0;
@@ -35,29 +34,32 @@ namespace ZagZig.Manager
             if (Instance != null && Instance != this)
             {
                 Destroy(gameObject);
+                return;
             }
-            else
-            {
-                Instance = this;
-            }
+
+            Instance = this;
         }
 
         private void OnEnable()
         {
             EventManager.OnScoreChanged += UpdateScoreText;
+            EventManager.OnGameStarted += AnimateStartPanel;
+            EventManager.OnGameEnded += ShowGameOverPanel;
         }
 
         private void OnDisable()
         {
             EventManager.OnScoreChanged -= UpdateScoreText;
+            EventManager.OnGameStarted -= AnimateStartPanel;
+            EventManager.OnGameEnded -= ShowGameOverPanel;
         }
 
-        public void ShowGameOverPanel()
+        private void ShowGameOverPanel()
         {
             gameOverPanel.gameObject.SetActive(true);
         }
 
-        private IEnumerator HideStartPanelCoroutine()
+        private IEnumerator HideStartPanelRoutine()
         {
             tapToStartText.gameObject.SetActive(false);
 
@@ -75,16 +77,16 @@ namespace ZagZig.Manager
             hideStartPanelCoroutine = null;
         }
 
-        public void AnimateStartPanelCoroutine()
+        private void AnimateStartPanel()
         {
             if (hideStartPanelCoroutine == null)
             {
-                hideStartPanelCoroutine = HideStartPanelCoroutine();
+                hideStartPanelCoroutine = HideStartPanelRoutine();
                 StartCoroutine(hideStartPanelCoroutine);
             }
         }
 
-        public void StopAnimateStartPanelCoroutine()
+        public void StopAnimateStartPanel()
         {
             if (hideStartPanelCoroutine != null)
             {
@@ -93,24 +95,37 @@ namespace ZagZig.Manager
             }
         }
 
-        public void UpdateScoreText(int score)
+        private void UpdateScoreText(int score)
         {
             currentScore += score;
             scoreText.text = currentScore.ToString();
         }
 
-        public void AnimateFloatingScoreText(int score, Vector3 position)
+        public void AnimateFloatingScoreText(Vector3 position)
         {
             var floatingText = ObjectPoolManager.Instance.GetFloatingText();
             floatingText.transform.position = position;
-            floatingText.GetComponentInChildren<TextMeshPro>().text = $"+{score}";
-            StartCoroutine(RemoveFloatingTextAfterSeconds(floatingText));
+            floatingText.text = $"+{gemScorePoint}";
+            StartCoroutine(FloatingTextRoutine(floatingText));
         }
 
-        private IEnumerator RemoveFloatingTextAfterSeconds(Transform floatingText)
+        private IEnumerator FloatingTextRoutine(TextMeshPro floatingText)
         {
-            yield return new WaitForSeconds(2);
-            ObjectPoolManager.Instance.RemoveFloatingText(floatingText);
+            var currentPosition = floatingText.transform.position;
+            var targetPosition = floatingText.transform.position + Vector3.up;
+            var t = 0f;
+
+            while (t < 1)
+            {
+                t += Time.deltaTime;
+                floatingText.transform.position = Vector3.Lerp(currentPosition, targetPosition, t);
+                yield return null;
+            }
+
+            if (ObjectPoolManager.Instance != null)
+            {
+                ObjectPoolManager.Instance.RemoveFloatingText(floatingText);
+            }
         }
     }
 }

@@ -44,8 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e4fb0eb993e447981d26542c8fc5e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZagZig.Manager.GameManager
+  playerManager: {fileID: 0}
+  cameraManager: {fileID: 0}
   pathManager: {fileID: 0}
-  playerController: {fileID: 0}
-  followPlayer: {fileID: 0}
-  gemPrefab: {fileID: 7313012806921032494, guid: 0e7fa77465f188549ae29c16d1542047, type: 3}
-  gemSpawnRate: 20

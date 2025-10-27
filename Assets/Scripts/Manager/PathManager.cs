@@ -6,25 +6,27 @@ namespace ZagZig.Manager
 {
     public class PathManager : MonoBehaviour
     {
-        public static PathManager Instance;
+        public static PathManager Instance { get; private set; }
 
-        [SerializeField] private Transform tileParent;
+        [Header("Tile Settings")]
+        [SerializeField] private Transform firstTileParent;
         [SerializeField] private Transform tilePrefab;
         [SerializeField] private int tileCountAtStart;
+
+        [Header("Gem Settings")]
+        private Transform gemPrefab;
+        private int gemSpawnRate;
 
         private Vector3 lastTilePosition;
         private Vector3 tileScale;
 
-        private Transform gemPrefab;
-        private int gemSpawnRate;
-
-        private float currentTileBoundHalfSizeY;
-        private float currentGemBoundHalfSizeY;
+        private float tileHalfHeight;
+        private float gemHalfHeight;
 
         private enum Direction
         {
             Right,
-            Front
+            Forward
         }
 
         private void Awake()
@@ -32,11 +34,10 @@ namespace ZagZig.Manager
             if (Instance != null && Instance != this)
             {
                 Destroy(gameObject);
+                return;
             }
-            else
-            {
-                Instance = this;
-            }
+
+            Instance = this;
         }
 
         public void Initialize(Transform gemPrefab, int gemSpawnRate)
@@ -44,17 +45,34 @@ namespace ZagZig.Manager
             this.gemPrefab = gemPrefab;
             this.gemSpawnRate = gemSpawnRate;
 
-            UpdateBounds();
             InitializeLastTilePosition();
-            UpdateTileSize();
-            CreateNewTilesAtStart();
+            CachePrefabData();
+            CreateInitialTiles();
+        }
+
+        private void CachePrefabData()
+        {
+            if (tilePrefab == null)
+            {
+                Debug.LogError("No tile prefab assigned");
+            }
+
+            if (gemPrefab == null)
+            {
+                Debug.LogError("No gem prefab assigned");
+            }
+
+            tileScale = tilePrefab.GetChild(0).localScale;
+
+            tileHalfHeight = tilePrefab.GetComponentInChildren<Renderer>().bounds.size.y / 2;
+            gemHalfHeight = gemPrefab.GetComponentInChildren<Renderer>().bounds.size.y / 2;
         }
 
         private void InitializeLastTilePosition()
         {
-            if (tileParent.childCount > 0)
+            if (firstTileParent.childCount > 0)
             {
-                lastTilePosition = tileParent.GetChild(0).position;
+                lastTilePosition = firstTileParent.GetChild(0).position;
             }
             else
             {
@@ -62,29 +80,11 @@ namespace ZagZig.Manager
             }
         }
 
-        private void UpdateTileSize()
-        {
-            if (tilePrefab.childCount > 0)
-            {
-                tileScale = tilePrefab.GetChild(0).localScale;
-            }
-            else
-            {
-                Debug.LogError("No tile prefab found");
-            }
-        }
-
-        private void UpdateBounds()
-        {
-            currentTileBoundHalfSizeY = tilePrefab.GetComponentInChildren<Renderer>().bounds.size.y / 2;
-            currentGemBoundHalfSizeY = gemPrefab.GetComponentInChildren<Renderer>().bounds.size.y / 2;
-        }
-
         private Direction GetNextPathDirection()
         {
-            var size = Enum.GetValues(typeof(Direction)).Length;
+            var directionSize = Enum.GetValues(typeof(Direction)).Length;
 
-            var newDirection = Random.Range(0, size);
+            var newDirection = Random.Range(0, directionSize);
             return (Direction)newDirection;
         }
 
@@ -101,29 +101,28 @@ namespace ZagZig.Manager
                 SpawnNewTile(Vector3.forward * tileScale.z);
             }
 
-            TryToSpawnGem();
+            TrySpawnGem();
         }
 
-        private void SpawnNewTile(Vector3 moveVector)
+        private void SpawnNewTile(Vector3 offset)
         {
-            var newPosition = (moveVector) + lastTilePosition;
             var newTile = ObjectPoolManager.Instance.GetTile();
-            newTile.transform.position = newPosition;
-            lastTilePosition = newPosition;
+            newTile.transform.position = (offset) + lastTilePosition;
+            lastTilePosition += offset;
         }
 
-        private void TryToSpawnGem()
+        private void TrySpawnGem()
         {
             var number = Random.Range(0, 100);
             if (number < gemSpawnRate)
             {
                 var newGem = ObjectPoolManager.Instance.GetGem();
-                var newGemPosition = lastTilePosition + new Vector3(0, currentGemBoundHalfSizeY + currentTileBoundHalfSizeY + 0.01f, 0);
-                newGem.transform.position = newGemPosition;
+                var yOffset = gemHalfHeight + tileHalfHeight + 0.01f;
+                newGem.transform.position = lastTilePosition + Vector3.up * yOffset;
             }
         }
 
-        private void CreateNewTilesAtStart()
+        private void CreateInitialTiles()
         {
             for (int i = 0; i < tileCountAtStart; i++)
             {

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using ZagZig.Ball;
 using ZagZig.Manager;
 
 namespace ZagZig
@@ -14,12 +16,23 @@ namespace ZagZig
 
         private IEnumerator fallingCoroutine;
 
-        private void OnDestroy()
+        private void OnDisable()
         {
-            StopFallTileCoroutine();
+            StopFallTile();
         }
 
-        private IEnumerator FallTileCoroutine()
+        private void OnCollisionExit(Collision other)
+        {
+            var ballHead = other.gameObject.GetComponentInParent<BallHead>();
+
+            if (ballHead != null)
+            {
+                EventManager.OnScoreChanged?.Invoke(UIManager.Instance.TileScorePoint);
+                StartCoroutine(FallTileRoutine());
+            }
+        }
+
+        private IEnumerator FallTileRoutine()
         {
             yield return new WaitForSeconds(fallDelay);
 
@@ -35,24 +48,28 @@ namespace ZagZig
                 yield return null;
             }
 
-            if (!isStartGround)
-            {
-                ObjectPoolManager.Instance.RemoveTile(transform);
-            }
+            HandleTileEnd();
 
             fallingCoroutine = null;
         }
 
-        public IEnumerator StartFallTileCoroutine()
+        private void HandleTileEnd()
         {
-            if (fallingCoroutine == null)
+            if (!isStartGround)
             {
-                fallingCoroutine = FallTileCoroutine();
-                yield return fallingCoroutine;
+                if (LevelManager.Instance.CurrentLevelState == LevelState.Infinite)
+                {
+                    ObjectPoolManager.Instance.RemoveTile(this);
+                    PathManager.Instance.CreateNewTile();
+                }
+                else
+                {
+                    gameObject.SetActive(false);
+                }
             }
         }
 
-        private void StopFallTileCoroutine()
+        private void StopFallTile()
         {
             if (fallingCoroutine != null)
             {

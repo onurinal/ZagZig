@@ -3,13 +3,13 @@ using ZagZig.Manager;
 
 namespace ZagZig
 {
-    public class Gem : MonoBehaviour
+    public class Gem : MonoBehaviour, ICollectable
     {
-        private void OnTriggerEnter(Collider other)
+        public void Collect()
         {
-            ObjectPoolManager.Instance.RemoveGem(transform);
+            ObjectPoolManager.Instance.RemoveGem(this);
             EventManager.OnScoreChanged?.Invoke(UIManager.Instance.GemScorePoint);
-            UIManager.Instance.AnimateFloatingScoreText(UIManager.Instance.GemScorePoint, transform.position);
+            UIManager.Instance.AnimateFloatingScoreText(transform.position);
         }
     }
 }

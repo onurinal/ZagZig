@@ -6,7 +6,11 @@ namespace ZagZig.Player
     public class PlayerProperties : ScriptableObject
     {
         [SerializeField] private float moveSpeed;
+        [SerializeField] private float followSpeed;
+        [SerializeField] private int spacing = 10;
 
         public float MoveSpeed => moveSpeed;
+        public float FollowSpeed => followSpeed;
+        public int Spacing => spacing;
     }
 }

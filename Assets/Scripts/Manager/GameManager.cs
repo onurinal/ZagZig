@@ -5,14 +5,11 @@ namespace ZagZig.Manager
 {
     public class GameManager : MonoBehaviour
     {
-        public static GameManager Instance;
+        public static GameManager Instance { get; private set; }
 
+        [SerializeField] private PlayerManager playerManager;
+        [SerializeField] private CameraManager cameraManager;
         [SerializeField] private PathManager pathManager;
-        [SerializeField] private PlayerController playerController;
-        [SerializeField] private FollowPlayer followPlayer;
-
-        [SerializeField] private Transform gemPrefab;
-        [SerializeField] [Range(0, 100)] private int gemSpawnRate;
 
         public bool HasGameStarted { get; private set; } = false;
 
@@ -21,29 +18,48 @@ namespace ZagZig.Manager
             if (Instance != null && Instance != this)
             {
                 Destroy(gameObject);
+                return;
             }
-            else
-            {
-                Instance = this;
-            }
+
+            Instance = this;
         }
 
         private void Start()
         {
-            pathManager.Initialize(gemPrefab, gemSpawnRate);
-            followPlayer.Initialize();
-            playerController.Initialize();
+            InitializeManagers();
+            LevelManager.Instance.StartLevel(pathManager);
+        }
+
+        private void InitializeManagers()
+        {
+            if (cameraManager == null)
+            {
+                Debug.LogError("CameraManager is null");
+            }
+            else
+            {
+                cameraManager.Initialize();
+            }
+
+            if (playerManager == null)
+            {
+                Debug.LogError("PlayerManager is null");
+            }
+            else
+            {
+                playerManager.Initialize();
+            }
         }
 
         public void StartGame()
         {
             HasGameStarted = true;
-            UIManager.Instance.AnimateStartPanelCoroutine();
+            EventManager.StartOnGameStarted();
         }
 
         public void GameOver()
         {
-            UIManager.Instance.ShowGameOverPanel();
+            EventManager.StartOnGameEnded();
         }
     }
 }

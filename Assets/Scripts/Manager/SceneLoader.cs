@@ -5,7 +5,7 @@ namespace ZagZig.Manager
 {
     public class SceneLoader : MonoBehaviour
     {
-        public static SceneLoader Instance;
+        public static SceneLoader Instance { get; private set; }
 
         private int currentSceneIndex;
 
@@ -14,17 +14,37 @@ namespace ZagZig.Manager
             if (Instance != null && Instance != this)
             {
                 Destroy(gameObject);
+                return;
             }
-            else
-            {
-                Instance = this;
-            }
+
+            Instance = this;
+        }
+
+        public void LoadMainMenu()
+        {
+            SceneManager.LoadScene("Main Menu");
         }
 
         public void LoadSameScene()
         {
-            currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene(currentSceneIndex);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        public void LoadLevelInfinite()
+        {
+            LevelManager.Instance?.SetLevelState(LevelState.Infinite);
+            SceneManager.LoadScene("Level Infinite");
+        }
+
+        public void LoadLevel1()
+        {
+            LevelManager.Instance?.SetLevelState(LevelState.Normal);
+            SceneManager.LoadScene("Level 1");
+        }
+
+        public void Quit()
+        {
+            Application.Quit();
         }
     }
 }

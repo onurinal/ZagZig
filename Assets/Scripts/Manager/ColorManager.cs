@@ -14,34 +14,22 @@ namespace ZagZig.Manager
 
         private void Update()
         {
-            CheckColorChangeTime();
-            UpdateGroundColor();
+            UpdateColorTimer();
+            LerpGroundColor();
         }
 
-        private void CheckColorChangeTime()
+        private void UpdateColorTimer()
         {
+            currentTime += Time.deltaTime;
+
             if (currentTime >= colorChangeTime)
             {
-                SetColorForGround();
+                currentColorIndex = (currentColorIndex + 1) % groundColors.Length;
                 currentTime = 0;
             }
-            else
-            {
-                currentTime += Time.deltaTime;
-            }
         }
 
-        private void SetColorForGround()
-        {
-            currentColorIndex++;
-
-            if (currentColorIndex >= groundColors.Length)
-            {
-                currentColorIndex = 0;
-            }
-        }
-
-        private void UpdateGroundColor()
+        private void LerpGroundColor()
         {
             groundMaterial.color = Color.Lerp(groundMaterial.color, groundColors[currentColorIndex], colorChangeSpeed * Time.deltaTime);
         }

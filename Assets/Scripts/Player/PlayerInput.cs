@@ -26,8 +26,8 @@ namespace ZagZig.Player
         {
             if (playerInputActions != null)
             {
-                playerInputActions.Player.Disable();
                 playerInputActions.Player.Tap.performed -= HandleMovement;
+                playerInputActions.Player.Disable();
             }
         }
 
